@@ -1,37 +1,58 @@
-## Welcome to GitHub Pages
+# Text to Speech Conversion
 
-You can use the [editor on GitHub](https://github.com/Miru-s/Text-to-Speech/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+At first we have imported some important library files that are required for our project.
+Tkinter- This framework provides Python users with a simple way to create GUI elements using the widgets found in the Tk toolkit. Tk widgets can be used to construct buttons, menus, data fields, etc. in a Python application.
+gTTS- gTTS (Google Text-to-Speech)is a Python library and CLI tool to interface with Google Translate text-to-speech API. gTTS is a very easy to use tool which converts the text entered, into audio which can be saved as a mp3 file.
+playsound - The playsound module is a cross platform module that can play audio files.
+ 
+Then we have designed our GUI window, where we have defined it’s dimensions to be 350x300 and background colour to be black. We defined all the text along with their styling and font size.
+ 
+Then comes the function Text_to_speech(). The function converts the text that we have entered in the GUI box (entry_field) to speech and saves it as a mp3 file in the same folder.
+ 
+Then we have defined various buttons in our GUI box; those are “Play”, “Exit” and “Reset” buttons.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+ 
+       
+    from tkinter import *
+    from gtts import gTTS
+    from playsound import playsound
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+    root = Tk()
+    root.geometry('350x300')
+    root.resizable(0,0)
+    root.config(bg = 'black')
+    root.title('TEXT TO SPEECH')
 
-```markdown
-Syntax highlighted code block
+    ##heading
+    Label(root, text = 'TEXT_TO_SPEECH' , font='arial 20 bold' , bg ='white smoke').pack()
+    #Label(root, text ='DataFlair' , font ='arial 15 bold', bg = 'white smoke').pack(side = BOTTOM)
+    #label
+    Label(root, text ='Enter Text', font ='arial 15 bold', bg ='black').place(x=20,y=60)
+    #text variable
+    Msg = StringVar()
 
-# Header 1
-## Header 2
-### Header 3
+    #Entry
+    entry_field = Entry(root,textvariable =Msg, width ='50')
+    entry_field.place(x=20 , y=100)
+    def Text_to_speech():
+      Message = entry_field.get()
+      speech = gTTS(text = Message)
+      speech.save('DataFlair.mp3')
+      playsound('DataFlair.mp3')
 
-- Bulleted
-- List
+    def Exit():
+      root.destroy()
 
-1. Numbered
-2. List
+    def Reset():
+      Msg.set("")
 
-**Bold** and _Italic_ and `Code` text
+    #Button
+    Button(root, text = "PLAY" , font = 'arial 15 bold', command = Text_to_speech, width =4).place(x=25, y=140)
+    Button(root,text = 'EXIT',font = 'arial 15 bold' , command = Exit, bg = 'Red').place(x=100,y=140)
+    Button(root, text = 'RESET', font='arial 15 bold', command = Reset).place(x=175 , y =140)
 
-[Link](url) and ![Image](src)
-```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+    #infinite loop to run program
+    root.mainloop()
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Miru-s/Text-to-Speech/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
